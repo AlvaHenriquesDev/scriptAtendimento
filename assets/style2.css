@@ -1,0 +1,91 @@
+/* GLOBAL */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+    --plano-de-fundo: hsl(0, 0%, 24%);
+    --plano-de-fundo2: hsl(0, 3%, 8%);
+    --plano-de-fundo3: hsl(0, 0%, 0%);
+    --text-font: hsl(100, 100%, 100%);
+ }
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    font-family: "Poppins", Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100vw;
+    width: 100vw;
+    background: linear-gradient(75deg, var(--plano-de-fundo3), var(--plano-de-fundo2), var(--plano-de-fundo)) fixed;
+}
+
+body{
+    color: var(--text-font);
+    font-size: 1em;
+    justify-content: center;
+}
+
+header h1,
+header h2 {
+    position: absolute;
+    font-size: 1.5em;    
+    
+}
+
+header h1{
+    top: 5%;
+    left: 35%;
+}
+
+header h2{
+    top: 10%;
+    left: 45%;
+}
+
+.img{
+    max-width: 500px;
+}
+
+#navbar {
+    position: fixed;
+    top: 20%;
+    right: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 0.7em;
+}
+
+#navbar li{
+    list-style: none;
+    padding: 5px 10px 5px 0px;
+    border: 2px solid var(--text-font);
+    margin-bottom: 20px;
+}
+
+#navbar a {
+    text-decoration: none;
+    color: var(--text-font);
+    margin-left: 10px; /* Adiciona espaço entre os links */
+}
+
+section:first-of-type{
+    margin-top: 10%;
+}
+
+section {
+    max-width: 75%;
+    padding-left: 10%;
+    margin-bottom: 2%;
+}
+
+section i{
+    color: var(--text-font);
+}
+
+section li {
+    list-style: none;
+}

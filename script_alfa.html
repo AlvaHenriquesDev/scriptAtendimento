@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.3">
+  <link rel="stylesheet" href="./assets/style.css">
+	<link rel="icon" type="image/x-icon" href="https://assine2.vocetelecom.com.br/assets/img/favicon.png">
+  <title>Script de Atendimento</title>
+</head>
+<body>
+  <header>
+	<nav>
+			<button><a href="https://app2.vocetelecom.vc/" target="_blank" class="">INTEGRATOR</a></button>
+			<button><a href="https://assine2.vocetelecom.com.br/" target="_blank" class="link sistemas">CRM</a></button>
+			<button><a href="http://360.vocetelecom.net.br/getec/index/" target="_blank" class="">GETEC</a></button>
+			<button><a href="http://zabbix.vocetelecom.local/zabbix/zabbix.php?action=dashboard.list" target="_blank" class="">ZABBIX</a></button>
+			<button><a href="http://10.2.199.22/" target="_blank" class="">ZABBIX LEGADA</a></button>
+			<button><a href="http://186.216.160.60:8000/zabbix/zabbix.php?action=problem.view&ddreset=1" target="_blank">ZAB - CORP</a></li></button>
+			<button><a href="https://glpi.vocetelecom.vc/glpi" target="_blank">GLPI</a></button>
+			<button><a href="http://10.2.199.7:3000/" target="_blank">GRAFANA</a></button>
+			<button><a href="./guia_rb.html" target="_blank">Guia RB</a></button>
+	</nav>
+	<h1>SCRIPT DE ATENDIMENTO</h1>
+	<p id="hora">Hora:</p>
+	<p class="horario"></p>
+	<h2>Chat</h2>
+	<nav>
+		<input type="text" value="Bom dia! Em que posso ajudar?" id="bomDia">
+		<button onclick="copy1()">Bom dia</button>
+		<input type="text" value="Boa tarde! Em que posso ajudar?" id="boaTarde">
+		<button onclick="copy2()">Boa tarde</button>
+		<input type="text" value="Boa noite!! Em que posso ajudar?" id="boaNoite">
+		<button onclick="copy3()">Boa noite</button>
+		<input type="text" value="Algo mais que eu possa ajudar??" id="algoMais">
+		<button onclick="copy4()">Algo mais?</button>
+		<input type="text" value="Obrigado por escolher a Voce Telecom!" id="obrigado">
+		<button onclick="copy5()">Obrigado!</button>
+	</nav>
+	<h2>Senhas e Logins:</h2>
+	<nav>
+		<input type="text" value="10.2.199.70" id="loginAMS">
+		<button onclick="ams()">IP AMS</button>
+		<input type="text" value="alvaro.neto" id="login">
+		<button onclick="login()">login</button>
+		<input type="text" value="uZAoX0uSPtfJHD" id="password">
+		<button onclick="password()">Senha</button>
+		<input type="text" value="AdminGPON" id="logGPON">
+		<button onclick="logGpon()">Login GPON</button>
+		<input type="text" value="@7zypt94b23!@#" id="senhaGPON">
+		<button onclick="gpon()">Senha GPON</button>
+		<input type="text" value="user" id="logDatac">
+		<button onclick="logDatac()">User</button>
+		<input type="text" value="AdminGPON" id="logGPON">
+		<button onclick="logGpon()">Senha Datacom</button>
+	</nav>
+	<nav>
+		<button onclick="ordemServico()">O.S.</button>	
+		<input type="text" value="DESCONEXÃO O.N.U. (CHECAR CABEAMENTO E VERIFICAR CONDIÇÕES DE USO DOS EQUIPAMENTOS DA VOCÊ TELECOM) CLIENTE ESTÁ CIENTE QUE CASO SEJA DETECTADO PROBLEMAS NÃO ADVINDO DOS EQUIPAMENTOS DA VOCÊ TELECOM SERÁ COBRADA TAXA DE VISITA TÉCNICA NO VALOR DE R$75,00 - CIENTE AINDA SOBRE O PRAZO DE 48HS PARA CUMPRIMENTO DO CHAMADO." id="os">
+		<button onclick="resetGeral()">RESET GERAL</button>	
+		<input type="text" value="rm -f /configs/zeroman/2/active \n
+		rm -f /configs/zeroman/2/commit \n
+		rm -f /configs/zeroman/2/content/* \n
+		rm -f /configs/zeroman/3/active \n
+		rm -f /configs/zeroman/3/commit \n
+		rm -f /configs/zeroman/3/content/* \n
+		rm -f /configs/zeroman/4/active \n
+		rm -f /configs/zeroman/4/commit \n
+		rm -f /configs/zeroman/4/content/* \n
+		rm -f /configs/zeroman/5/active \n
+		rm -f /configs/zeroman/5/commit \n
+		rm -f /configs/zeroman/5/content/* \n
+		cfgcli -r all" id="rg">
+		<input type="text" value="ONTUSER" id="logRG">
+		<button onclick="logRG()">LOGIN RG</button>	
+		<input type="text" value="OmPsJDY6CzGS" id="senhaRG">
+		<button onclick="senhaRG()">SENHA RG</button>
+		<input type="text" value="ping bel.ptt.br -t" id="teste1">
+		<button onclick="testelatencia1()">LATENCIA 1</button>
+		<input type="text" value="ping sp.ptt.br -t" id="teste2">
+		<button onclick="testelatencia2()">LATENCIA 2</button>
+	</nav>
+
+</header>
+<hr>
+<main>
+	<label for="att1">
+	<h3>campo 1</h3>
+	<textarea name="atendimento" id="att1" rows="15" cols="50">OPERADOR: ÁLVARO NETO
+CARGO: SUPORTE N3 (CORPORATIVO)
+CANAL DE ATENDIMENTO: 
+			
+RELATO CLIENTE:
+- 
+			
+ANALISE E PROCEDIMENTOS:
+- 
+		
+	</textarea>
+	</label>
+	<label for="att2">
+	<h3>campo 2</h3>
+	<textarea name="atendimento" id="att2" rows="15" cols="50">OPERADOR: ÁLVARO NETO
+CARGO: SUPORTE N3 (CORPORATIVO)
+CANAL DE ATENDIMENTO: 
+			
+RELATO CLIENTE:
+-
+			
+ANALISE E PROCEDIMENTOS:
+- 
+		
+	</textarea>
+	</label>
+	<label for="att3">
+	<h3>campo 3</h3>
+	<textarea name="atendimento" id="att3" rows="15" cols="50">OPERADOR: ÁLVARO NETO
+CARGO: SUPORTE N3 (CORPORATIVO)
+CANAL DE ATENDIMENTO: 
+			
+RELATO CLIENTE:
+-
+			
+ANALISE E PROCEDIMENTOS:
+- 
+		
+	</textarea>
+	</label>
+	<label for="osZap">
+	<h3>Protocolo O.S. WhatsApp</h3>
+	<textarea name="atendimento" id="osZap" rows="15" cols="50">*ABERTA O.S*
+PROTOCOLO: 
+CLIENTE: **
+NOME FANTASIA: 
+MOTIVO: *DESCONEXÃO*
+PLANO: 
+ABERTURA: 
+ENDEREÇO: 
+REFERENCIA: 
+*CONTATO: *
+*HORARIO DE FUNCIONAMENTO: *
+EQUIPAMENTO: 
+	</textarea>
+	</label>
+	
+</main>
+<hr>
+<footer>
+	<p>criado por &copy; Alvaro Henriques Nt</p>
+	<a href="#">Inicio</a>
+</footer>
+
+<script src="./assets/clipboard.js"></script>
+<script src="./assets/horas.js"></script>
+
+</script>
+</body>
+</html>

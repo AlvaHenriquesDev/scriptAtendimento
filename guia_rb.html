@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Guia para ativação e configuração de RB
+    MIKROTIK"">
+    <title>Ativação RB</title>
+    <link rel="stylesheet" href="./style2.css" />
+  </head>
+  <body>
+    <header>
+      <h1 id="logo">ATIVAÇÃO ROUTERBOARD - MIKROTIK</h1>
+      <h2 id="subLogo">Passo a Passo</h2>
+      <h3>OBSERVAÇÂO: Caso o cliente precise de Tunel EOIP ou MPLS prossiga para a seçao relativa via navegador ao lado</h3>
+      <nav id="navbar">
+        <ul>
+          <li class="passo"><a href="#gerencia">Passo 1</a></li>
+          <li class="passo"><a href="#pppoe">Passo 2</a></li>
+          <li class="passo"><a href="#configRB">Passo 3</a></li>
+          <li class="passo"><a href="#custom">Passo 4</a></li>
+          <li class="passo"><a href="#eoip">Eoip</a></li>
+          <li class="passo"><a href="#mpls">MPLS</a></li>
+          <li class="passo"><a href="#script">Script</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section id="gerencia">
+        <h2># Passo 1 - Obtendo Gerencia</h2>
+        <p>
+          - Abra o Putty e insira o comando: <br>
+          <code><em>ccliente |grep vocetelecomcabo ou mac de gerencia</em></code>
+        </p>
+        <p>- Inserir no Winbox o IP mais a esquerda da lista criada</p>
+        <img src="./img/img1.png" alt="comando putty" />
+        <p>
+            - Caso não apareça nada, inserir o SERIAL via AMS e copiar o MAC de
+            gerencia da <strong>vlan 1000</strong>. Qualquer erro como: MAC nao aparecer ou as Vlans estiverem inativas deve solicitar
+            ao técnico verificar o fisico (sinal de fibra na onu, conexao do cabo da bridge na ether 1 da RB, etc)
+          </p>
+        <img src="./img/AMS.png" alt="obtendo mag de gerencia via AMS" class="img">
+        <br />
+        <p>- Winbox</p>
+        <img
+          src="./img/img2.png"
+          alt="inserindo ip no winbox"s
+          class="img"
+        />
+        <p><em>A Senha padrão para novas RBs é a de final "bg"</em></p>
+      </section>
+      <section id="pppoe">
+        <h2># Passo 2 - Conectando o PPPoE</h2>
+        <p>
+          - Gerar Senha no Putty e inserir no campo abaixo:
+          <em>(Integrator Web)</em>
+        </p> 
+        <img
+          src="./img/img3.png"
+          alt="Alterar Senha PPPoE no integrator web"
+          class="img"
+        /> <br>
+        <button onclick="gerarSenha()">Gerar Senha</button><span> copie -> </span>
+        <input type="text" id="senha" readonly placeholder="Senha PPPoE">
+        <p> - cole a senha gerada acima no campo "Senha" do integrator web</p>
+        <p>- Copie o login PPPoE do plano a ser ativado e a mesma senha inserida no integrator<em>(conforme imagem abaixo)</em></p>
+        <img src="./img/img4.png" alt="Campo Dial Out da interface ppppoe da RB" class="img"> <br>
+        <i class="fa-solid fa-exclamation"><strong>! OBS: EQUIPAMENTO IRÁ REINICIAR APÓS APLICAR ALTERAÇÃO NA RB !</strong></i>
+        <p>- Pegar o novo IP de gerencia da RB em “Propriedades de Login -> Last Ip” no integrator
+        </p>
+        <img src="./img/img5.png" alt="" class="img">
+      </section>
+      <section id="configRB">
+        <h2>Passo 3 - Configurando a Bridge</h2>
+        <p>- Resetar o mac de todas as portas (ETHERs 1 a 5) da RB conforme imagem (duplo clique nas porta correspondente):</p>
+        <img src="./img/img6.png" alt="Campo de reset de MAC address" class="img">
+        <p>! EQUIPAMENTO PODERÁ REINICIAR NOVAMENTE APÓS RESET DO MAC DA ETHER 1!</p>
+        <p>- Inserir o IP de gerencia: (caminho: <em>IP > Address</em>)</p>
+        <ul>
+            <li><strong>Adress:</strong> <em>192.168.3.254/24</em></li>
+            <li><strong>Network:</strong> <em>192.168.3.0</em></li>
+            <li><strong>Interface:</strong> <em>br0-lan</em></li>
+        </ul>
+        <img src="./img/img7.png" alt="ip adress e rota de gerencia" class="img">
+        <p>- Inserir o Eoip e portas 02 a 04 na Bridge <em><strong>br0-lan</strong></em> (caminho: <em>Bridge > Ports</em>)</p>
+        <img src="./img/img8.png" alt="Bridge e portas anexadas" class="img">
+      </section>
+      <section id="custom">
+        <h2># Passo 4 - Customizando a RB</h2>
+        <p>- Nomeie a RB relacionando ao Plano do cliente <em>Ex: RB_PLANO_01</em> (caminho: <em>System > identity</em>)</p></p>
+        <img src="./img/img9.png" alt="system identity" class="img">
+        <p>- Altere a senha para <em>"7kwi387bgnk12"</em></p>
+        <img src="./img/img10.png" alt="system password" class="img">
+        <p><strong>AQUI ENCERRA A CONFIGURAÇÃO DA RB!</strong> Caso seja necessaria confiutração de <strong>Tunnel Eoip</strong> ou <strong>MPLS</strong> so processguir abaixo ou selecionando na Barra de navegaçãos</p>
+      </section>
+      <section id="eoip">
+        <h2># Criando Tunnel EOIP</h2>
+        <p>- Antes de tudo é necessario solicitar a liderança a criação do IP publico via Integrator WEB - Caminho<em>(Clique direito no Plano > "Alterar Ponto de Acesso" > Digitar "Eoip" > selecionar "Tunel Eoip")</em></p>
+        <p>- Feito o passo acima, agora é necessario fixar o IP ao plano:</p>
+        <ul>
+          <li>Passos</li>
+          <li>1 - CLique direito no plano</li>
+          <li>2 - Selecione "Adicionar Serviço"</li>
+          <li>3 - Selecione "IP"</li>
+          <li>4 - CLique direito no Campo ip e "Editar Configuração"</li>
+          <li>5 - Clicar no botao de "3 pontos" na aba e salve</li>
+        </ul>
+        <p>- Abra as propriedades de login e desconecte o PPPoE para regisrar o IP de gerencia</p>
+        <p>- ACESSE A RB e o Concentrador</p>
+        <p>- No Concentrador va na aba <em>"Interface List"</em> e adicione um novo tunnel eoip</p>
+        <img src="./img/img11.png" alt="Interface List > EoiP Tunnel" class="img">
+        <p>Campos</p>
+        <ul>
+          <li><strong>NAME:</strong> <em>"eoip-'nome relativo ao plano'"</em></li>
+          <li><strong>Remote Address:</strong> <em>"IP de gerencia da FILIAl'"</em></li>
+          <li><strong>Tunnel ID:</strong> <em>"Numero aleatorio"</em></li>    
+        </ul>
+        <img src="./img/img12.png" alt="Interface Eoip" class="ing"><br>
+        <p>Repetir o mesmo processo na Filial:</p>
+        <ul>
+          <li><strong>NAME:</strong> <em>"Nao é necessário alterar'</em></li>
+          <li><strong>Remote Address:</strong> <em>"IP de gerencia do Concentrador"</em></li>
+          <li><strong>Tunnel ID:</strong> <em>"Mesmo Numero inserido no Concentrador"</em></li>    
+        </ul>
+        <p>- REALIZAR TESTE DE COMUNICAÇÃO ENTRE OS PONTOS</p>
+        <P>- Pingar do concentrador pro IP da filial e ViceVersa</P>
+      </section>
+      <section id="mpls">
+        <h2># MPLS - ABRIR GLPI P/ CRIAÇÂO DAS VLANS PELO CORE</h2>
+        <br>
+        <p>DADOS NECESSARIOS:</p>
+        <ul>
+          <li><strong>VLAN configurada na RB</strong></li>
+          <li><strong>POP (concentrador e filial)</strong></li>
+          <li><strong>Serial da BRIDGE (concentrador e filial)</strong></li>
+        </ul>
+      </section>
+      <section id="script">
+        <h2>Script Atendimento</h2>
+        <textarea name="script" id="scriptATT" cols="30" rows="10">
+OPERADOR:
+
+Configuração de ativação realizada:
+
+Mac Address resetado nas portas Ether 1 a 5
+Login pppoe e senha atualizado
+Portas Ether 2, 3, 4 e 5 definidas na bridge
+Nome e senha do equipamento definidos no padrão
+Comunicação entre Pontos realizada
+Nome e Senha customizados no padrão    
+        </textarea>
+      </section>
+    </main>
+    <footer>
+      <p>criado por &copy; Alvaro Henriques Nt</p>
+      <a href="#">Inicio</a>
+    </footer>
+
+    <script>
+        function gerarSenha() {
+            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let senha = '';
+            for (let i = 0; i < 10; i++) {
+                const randomIndex = Math.floor(Math.random() * caracteres.length);
+                senha += caracteres[randomIndex];
+            }
+            document.getElementById('senha').value = senha;
+        }
+    </script>
+  </body>
+</html>

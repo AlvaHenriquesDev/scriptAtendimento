@@ -38,14 +38,10 @@ nav {
     gap: 0.5em;
     font-size: 0.8em;
     display: flex;
-    margin: 10px auto;
+    margin: 10px auto 30px;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-}
-
-hr {
-    margin: 30px 0;
 }
 
 input {
@@ -53,20 +49,20 @@ input {
 }
 
 #hora {
-    font-size: 1em;
+    font-size: 1.5em;
     position: absolute;
     color: var(--text-font);
     position: absolute;
-    top: 50px;
-    right: 100px;
+    top: 55px;
+    right: 150px;
 }
 
 .horario {
-        font-size: 1em;
+        font-size: 1.5em;
         position: absolute;
         color: var(--text-font);
-        top: 50px;
-        right: 55px
+        top: 55px;
+        right: 50px
 }
 
 button {
